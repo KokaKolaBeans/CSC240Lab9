@@ -2,56 +2,71 @@
 #define LINKEDCQITERATOR_H
 #include <stddef.h>
 // NodeType struct definition
-template <class ItemType>
+
+template <class T>
 struct NodeType
 {
-    ItemType info;
-    NodeType<ItemType> *next;
+    T info;
+    NodeType<T> *next;
 };
 // A template for an iterator that implements the contract required by the
 // range-based for-loop.
-template <class ItemType>
-class LinkedQueueTypeIterator
+template <class T>
+class LinkedCQIterator
 {
 public:
     // Customize the constructor to work with the ADT.
-    LinkedQueueTypeIterator(NodeType<ItemType> *start, int loc);
-    ItemType &operator*();
+    LinkedCQIterator(NodeType<T> *start, int loc);
+    T &operator*();
     // Customize to return the proper iterator class.
-    LinkedQueueTypeIterator<ItemType> &operator++();
+    LinkedCQIterator<T> &operator++();
     // Customize to receive the correct Iterator class.
-    bool operator!=(const LinkedQueueTypeIterator<ItemType> &it) const;
+    bool operator!=(const LinkedCQIterator<T> &it) const;
+
+    bool operator==(const LinkedCQIterator<T> &it) const;
 
 private:
     // The start of the linked list.
-    NodeType<ItemType> *item;
+    NodeType<T> *item;
     int location;
 };
 
 // Implementation must be in header for templates
-template <class ItemType>
-LinkedQueueTypeIterator<ItemType>::LinkedQueueTypeIterator(NodeType<ItemType> *start,
-                                                           int loc)
+template <class T>
+LinkedCQIterator<T>::LinkedCQIterator(NodeType<T> *start, int loc)
 {
-    // TODO
+    // First Draft
+    this->item = start;
+    this->location = loc; // ??
 }
 
-template <class ItemType>
-ItemType &LinkedQueueTypeIterator<ItemType>::operator*()
+template <class T>
+T &LinkedCQIterator<T>::operator*()
 {
-    // TODO
+    T deref = item->info; // Is this right? Should the deref deref the NodeType Struct or the specific T info that sits there?
+    return deref;
 }
 
-template <class ItemType>
-LinkedQueueTypeIterator<ItemType> &LinkedQueueTypeIterator<ItemType>::operator++()
+template <class T>
+LinkedCQIterator<T> &LinkedCQIterator<T>::operator++()
 {
-    // TODO
+    // First Draft
+    item = item->next;
+    location++;
 }
 
-template <class ItemType>
-bool LinkedQueueTypeIterator<ItemType>::operator!=(const LinkedQueueTypeIterator<ItemType> &it) const
+template <class T>
+bool LinkedCQIterator<T>::operator!=(const LinkedCQIterator<T> &it) const
 {
-    // TODO
+    // First Draft
+    return item != it.item;
+}
+
+template <class T>
+bool LinkedCQIterator<T>::operator==(const LinkedCQIterator<T> &it) const
+{
+    // First Draft
+    return item == it.item;
 }
 
 #endif

@@ -48,12 +48,12 @@
 */
 // ================================================================================================
 
-template <class ItemType>
+template <class T>
 
 struct NodeType
 {
-  ItemType info;
-  NodeType<ItemType> *next;
+  T info;
+  NodeType<T> *next;
 };
 
 class FullQueue
@@ -63,7 +63,7 @@ class EmptyQueue
 {
 };
 
-template <class ItemType>
+template <class T>
 class QueType
 {
 public:
@@ -86,11 +86,11 @@ public:
   bool IsFull() const;
   // Function: Determines whether the queue is full.
   // Post: Function value = (queue is full)
-  void Enqueue(ItemType newItem);
+  void Enqueue(T newItem);
   // Function: Adds newItem to the rear of the queue.
   // Post: If (queue is full) FullQueue exception is thrown
   //       else newItem is at rear of queue.
-  void Dequeue(ItemType &item);
+  void Dequeue(T &item);
   // Function: Removes front item from the queue and returns it in item.
   // Post: If (queue is empty) EmptyQueue exception is thrown
   //       and item is undefined
@@ -99,7 +99,7 @@ public:
   void Print();
   // Function: Display the contents of the QueType in the console output.
   // Post: The QueType remains unchanged.
-  QueType<ItemType> &operator=(const QueType &anotherQue);
+  QueType<T> &operator=(const QueType &anotherQue);
   // Function: Copy Assignment Operator
   // Pre:  This queue and anotherQue have been initialized.
   // Post: This queue is a deep copy of anotherQue;
@@ -121,11 +121,12 @@ public:
   // Post: Returns true if rear is nullptr; false otherwise.
   //       The queue remains unchanged.
 
+  LinkedQueueTypeIterator<T> begin();
+  LinkedQueueTypeIterator<T> end();
+
 private:
-  NodeType<ItemType> *rear;
+  NodeType<T> *rear;
   int length;
-  LinkedQueueTypeIterator<ItemType> begin();
-  LinkedQueueTypeIterator<ItemType> end();
 };
 
 template <class ItemType>
